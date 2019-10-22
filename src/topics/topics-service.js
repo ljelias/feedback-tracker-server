@@ -14,7 +14,12 @@ const TopicsService = {
       .distinct('topic_name')
       .where('student_id', student_id)
   },
-  getStudentTopic(knex, topic, student_id) {
+  getAllTopicsBySession(knex, session_id){
+    return knex('lessontopics')
+      .select('*')
+      .where('lesson_id', session_id)
+  },
+  getSpecificStudentTopic(knex, topic, student_id) {
     return knex.from('lessontopics')
     .select('lesson_id', 'topic_name', 'topic_content')
     .where({

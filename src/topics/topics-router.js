@@ -11,6 +11,7 @@ const jsonParser = express.json();
 const topicFormat = topic => ({
   id: topic.id,
   lesson_id: topic.lesson_id,
+  student_id: topic.student_id,
   topic_name: xss(topic.topic_name),
   topic_content: xss(topic.topic_content)
 });
@@ -25,9 +26,9 @@ topicsRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { lesson_id, topic_name, topic_content } = req.body;
-    const newTopic = { lesson_id, topic_name, topic_content };
-    const requiredFields = { lesson_id, topic_name };
+    const { lesson_id, student_id, topic_name, topic_content } = req.body;
+    const newTopic = { lesson_id, student_id, topic_name, topic_content };
+    const requiredFields = { lesson_id, student_id, topic_name };
 
     for (const [key, value] of Object.entries(requiredFields)) {
       if (value == null) {
@@ -52,9 +53,17 @@ topicsRouter.route('/:student_id')
     })
   })
 
+topicsRouter.route('/session/:session_id')
+  .get((req, res) => {
+    TopicsService.getAllTopicsBySession(req.app.get('db'), req.params.session_id)
+    .then(topics => {
+      res.json(topics.map(topicFormat))
+    })
+  })
+
 topicsRouter.route('/:topic/:student_id')
   .get((req, res) => {
-    TopicsService.getStudentTopic(req.app.get('db'), req.params.topic, req.params.student_id)
+    TopicsService.getSpecificStudentTopic(req.app.get('db'), req.params.topic, req.params.student_id)
       .then(topics => {
         res.json(topics.map(topicFormat))
       })

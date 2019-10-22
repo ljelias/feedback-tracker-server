@@ -61,7 +61,7 @@ sessionsRouter.route('/:session_id')
       .catch(next)
   })
   .get((req, res, next) => {
-    return res.json(sessionFormat(session))
+    return res.json(res.session[0]);
   })
   .delete((req, res, next) => {
     SessionsService.deleteSession( req.app.get('db'), req.params.session_id )
