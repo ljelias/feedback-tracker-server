@@ -11,6 +11,7 @@ const jsonParser = express.json();
 const topicFormat = topic => ({
   id: topic.id,
   lesson_id: topic.lesson_id,
+  lesson_date: topic.lesson_date,
   student_id: topic.student_id,
   topic_name: xss(topic.topic_name),
   topic_content: xss(topic.topic_content)

@@ -21,7 +21,7 @@ const TopicsService = {
   },
   getSpecificStudentTopic(knex, topic, student_id) {
     return knex.from('lessontopics')
-    .select('lesson_id', 'topic_name', 'topic_content')
+    .select('lesson_id', 'lesson_date', 'topic_name', 'topic_content')
     .where({
       topic_name: topic,
       student_id: student_id

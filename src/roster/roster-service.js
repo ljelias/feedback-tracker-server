@@ -22,7 +22,9 @@ const RosterService = {
   updateStudent(knex, id, updatedStudentInfo) {
     return knex('studentroster')
       .where('id', id)
-      .update(updatedStudentInfo);
+      .update(updatedStudentInfo)
+      .returning('*')
+      .then(rows => { return rows[0]});
   }
 }
 

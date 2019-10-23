@@ -76,7 +76,7 @@ rosterRouter.route('/:student_id')
       return res.status(400).json({ error: {message: `Update request must include: first_name, last_name, phone, email, or misc_info`} })
     }
     RosterService.updateStudent(req.app.get('db'), req.params.student_id, studentToUpdate)
-      .then(() => { res.status(204).end() })
+      .then((student) => { res.status(200).json(studentFormat(student)) })
       .catch(next)
   })
 
