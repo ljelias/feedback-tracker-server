@@ -27,9 +27,9 @@ topicsRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { lesson_id, student_id, topic_name, topic_content } = req.body;
-    const newTopic = { lesson_id, student_id, topic_name, topic_content };
-    const requiredFields = { lesson_id, student_id, topic_name };
+    const { lesson_id, lesson_date, student_id, topic_name, topic_content } = req.body;
+    const newTopic = { lesson_id, lesson_date, student_id, topic_name, topic_content };
+    const requiredFields = { lesson_id, lesson_date, student_id, topic_name };
 
     for (const [key, value] of Object.entries(requiredFields)) {
       if (value == null) {
