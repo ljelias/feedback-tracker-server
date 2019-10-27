@@ -1,9 +1,11 @@
-const app = require('../src/app');
+const { expect } = require('chai');
+const supertest = require('supertest');
+const app = require('../src/app.js');
 
 describe('App', () => {
-  it('GET / responds with 200 containing "Hello, world!"', () => {
+  it('GET / responds with 200 containing "Hello, tutors and students!"', () => {
     return supertest(app)
       .get('/')
-      .expect(200, 'Hello, boilerplate!');
+      .expect(200, 'Hello, tutors and students!');
   });
 });

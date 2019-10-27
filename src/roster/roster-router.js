@@ -10,11 +10,11 @@ const jsonParser = express.json();
 
 const studentFormat = student => ({
   id: student.id,
-  firstName: xss(student.first_name),
-  lastName: xss(student.last_name),
+  first_name: xss(student.first_name),
+  last_name: xss(student.last_name),
   phone: xss(student.phone),
   email: xss(student.email),
-  miscInfo: xss(student.misc_info)
+  misc_info: xss(student.misc_info)
 });
 
 rosterRouter
@@ -47,11 +47,12 @@ rosterRouter
   })
 
 
-rosterRouter.route('/:student_id')
+rosterRouter.route('/:id')
   .all((req, res, next) => {
-    RosterService.getStudentById( req.app.get('db'), req.params.student_id )
+    const { id } = req.params;
+    RosterService.getStudentById( req.app.get('db'), id )
       .then(student => {
-        if(!student) { return res.status(404).json({error: {message: 'Student does not exist'} }) }
+        if(!student) { return res.status(404).json({error: {message: 'Student not found'} }) }
         console.log(student);
         res.student = student;
         next();
@@ -63,7 +64,9 @@ rosterRouter.route('/:student_id')
     res.json(studentFormat(res.student[0]))
   })
   .delete((req, res, next) => {
-    RosterService.deleteStudent( req.app.get('db'), req.params.student_id )
+    const { id } = req.params;
+
+    RosterService.deleteStudent( req.app.get('db'), id )
     .then(() => { res.status(204).end() })
     .catch(next)
   })
@@ -75,7 +78,7 @@ rosterRouter.route('/:student_id')
     if(numberOfValues == 0) {
       return res.status(400).json({ error: {message: `Update request must include: first_name, last_name, phone, email, or misc_info`} })
     }
-    RosterService.updateStudent(req.app.get('db'), req.params.student_id, studentToUpdate)
+    RosterService.updateStudent(req.app.get('db'), req.params.id, studentToUpdate)
       .then((student) => { res.status(200).json(studentFormat(student)) })
       .catch(next)
   })

@@ -12,7 +12,8 @@ const RosterService = {
   getStudentById(knex, id) {
     return knex('studentroster')
       .select('*')
-      .where('id', id); //NEEDED? .first();
+      .where('id', id);
+     // .first();
   },
   deleteStudent(knex, id) {
     return knex('studentroster')
@@ -27,5 +28,6 @@ const RosterService = {
       .then(rows => { return rows[0]});
   }
 }
+
 
 module.exports = RosterService;
