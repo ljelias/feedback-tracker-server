@@ -53,14 +53,12 @@ rosterRouter.route('/:id')
     RosterService.getStudentById( req.app.get('db'), id )
       .then(student => {
         if(!student) { return res.status(404).json({error: {message: 'Student not found'} }) }
-        console.log(student);
         res.student = student;
         next();
       })
       .catch(next)
   })
   .get((req, res) => {
-    console.log(res.student);
     res.json(studentFormat(res.student[0]))
   })
   .delete((req, res, next) => {

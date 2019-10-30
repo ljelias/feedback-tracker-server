@@ -16,7 +16,7 @@
   "engines": {
     "node": "12.8.0"
   },
-  "author": "",
+  "author": "ljelias",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
