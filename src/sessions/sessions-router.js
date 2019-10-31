@@ -77,7 +77,7 @@ sessionsRouter.route('/:session_id')
       return res.status(400).json({ error: {message: `Update request must include: student_id, lesson_date, or next_session_info`} })
     }
     SessionsService.updateSession(req.app.patch.get('db'), req.params.session_id, sessionToUpdate)
-      .then(numRowsAffected => { res.status(204).end() })
+      .then((session) => { res.status(200).json(sessionFormat(session)) })
       .catch(next)
   })
 

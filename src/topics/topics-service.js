@@ -42,7 +42,10 @@ const TopicsService = {
   updateTopic(knex, id, updatedTopicInfo) {
     return knex('lessontopics')
       .where('id', id)
-      .update(updatedTopicInfo);
+      .update(updatedTopicInfo)
+      .returning('*')
+      .then(rows => { return rows[0]});
+;
   }
 }
 

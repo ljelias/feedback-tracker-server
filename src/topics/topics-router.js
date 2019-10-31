@@ -96,8 +96,8 @@ topicsRouter.route('/:topic_id')
     if(numberOfValues == 0) {
       return res.status(400).json({ error: {message: `Update request must include:  topic_name or topic_content`} })
     }
-    TopicsService.updateTopic(req.app.patch.get('db'), req.params.topic_id, topicToUpdate)
-      .then(numRowsAffected => { res.status(204).end() })
+    TopicsService.updateTopic(req.app.get('db'), req.params.topic_id, topicToUpdate)
+      .then((topic) => { res.status(200).json(topicFormat(topic)) })
       .catch(next)
   })
 
