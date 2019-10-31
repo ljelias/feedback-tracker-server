@@ -89,12 +89,12 @@ topicsRouter.route('/:topic_id')
     .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { topic_id, lesson_date, next_topic_info } = req.body;
-    const topicToUpdate = { topic_id, lesson_date, next_topic_info };
+    const { topic_name, topic_content } = req.body;
+    const topicToUpdate = { topic_name, topic_content };
     const numberOfValues = Object.values(topicToUpdate).filter(Boolean).length;
 
     if(numberOfValues == 0) {
-      return res.status(400).json({ error: {message: `Update request must include: topic_id, lesson_date, or next_topic_info`} })
+      return res.status(400).json({ error: {message: `Update request must include:  topic_name or topic_content`} })
     }
     TopicsService.updateTopic(req.app.patch.get('db'), req.params.topic_id, topicToUpdate)
       .then(numRowsAffected => { res.status(204).end() })

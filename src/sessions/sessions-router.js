@@ -69,12 +69,12 @@ sessionsRouter.route('/:session_id')
     .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { session_id, lesson_date, next_session_info } = req.body;
-    const sessionToUpdate = { session_id, lesson_date, next_session_info };
+    const { student_id, lesson_date, next_session_info } = req.body;
+    const sessionToUpdate = { student_id, lesson_date, next_session_info };
     const numberOfValues = Object.values(sessionToUpdate).filter(Boolean).length;
 
     if(numberOfValues == 0) {
-      return res.status(400).json({ error: {message: `Update request must include: session_id, lesson_date, or next_session_info`} })
+      return res.status(400).json({ error: {message: `Update request must include: student_id, lesson_date, or next_session_info`} })
     }
     SessionsService.updateSession(req.app.patch.get('db'), req.params.session_id, sessionToUpdate)
       .then(numRowsAffected => { res.status(204).end() })
