@@ -306,9 +306,9 @@ Status: 200 OK
 --------------------------------------------------
 
 ## This server is built with: 
-- node.js
-- sql
-- knex
+- Node.js
+- PostgreSQL
+- Knex
 
 
 

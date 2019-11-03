@@ -20,6 +20,7 @@ app.use('/api/students', rosterRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/topics', topicsRouter);
 
+
 app.get('/', (req, res) => {
   res.send('Hello, tutors and students!');
 });
